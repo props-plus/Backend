@@ -4,9 +4,9 @@ const pg = require("pg");
 pg.defaults.ssl = true;
 
 module.exports = {
-  development: {
+  staging1: {
     client: "pg",
-    connection: process.env.DATABASE_URL,
+    connection: process.env.STAGE1_DATABASE_URL,
     pool: {
       min: 2,
       max: 10
@@ -21,9 +21,9 @@ module.exports = {
     }
   },
 
-  staging: {
+  staging2: {
     client: "pg",
-    connection: process.env.DATABASE_URL,
+    connection: process.env.STAGE2_DATABASE_URL,
     pool: {
       min: 2,
       max: 10
@@ -40,7 +40,7 @@ module.exports = {
 
   production: {
     client: "pg",
-    connection: process.env.DATABASE_URL,
+    connection: process.env.PROD_DATABASE_URL,
     pool: {
       min: 2,
       max: 10
