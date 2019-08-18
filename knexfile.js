@@ -4,7 +4,7 @@ const pg = require("pg");
 pg.defaults.ssl = true;
 
 module.exports = {
-  staging1: {
+  development: {
     client: "pg",
     connection: process.env.STAGE1_DATABASE_URL,
     pool: {
@@ -21,7 +21,7 @@ module.exports = {
     }
   },
 
-  staging2: {
+  staging: {
     client: "pg",
     connection: process.env.STAGE2_DATABASE_URL,
     pool: {
