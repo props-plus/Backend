@@ -1,20 +1,20 @@
-const CONTACTS = "CONTACTS";
+const CONTACTS = 'CONTACTS'
 
 exports.up = async function(knex) {
-  await knex.schema.createTable(CONTACTS, tbl => {
-    tbl.increments();
-    tbl.string("firstname").notNullable();
-    tbl.string("lastname").notNullable();
-    tbl.string("email").notNullable();
-    tbl.bigInteger("phone").notNullable();
-    tbl.string("address1").notNullable();
-    tbl.string("address2").notNullable();
-    tbl.string("city").notNullable();
-    tbl.string("state").notNullable();
-    tbl.integer("zip").notNullable();
-  });
-};
+    await knex.schema.createTable(CONTACTS, tbl => {
+        tbl.increments()
+        tbl.string('firstname')
+        tbl.string('lastname')
+        tbl.string('email')
+        tbl.bigInteger('phone')
+        tbl.string('address1')
+        tbl.string('address2')
+        tbl.string('city')
+        tbl.string('state')
+        tbl.integer('zip')
+    })
+}
 
 exports.down = async function(knex) {
-  await knex.schema.dropTableIfExists(CONTACTS);
-};
+    await knex.schema.dropTableIfExists(CONTACTS)
+}
