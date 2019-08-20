@@ -4,7 +4,7 @@ const WORKSPACE_PROFILES_BADGES = 'WORKSPACE_PROFILES_BADGES';
 module.exports = {
   find,
   findById,
-  insert,
+  add,
   update,
   remove,
 };
@@ -18,7 +18,7 @@ function findById(id){
     .where({ id });
 };
 
-function insert(badge){
+function add(badge){
   return db(WORKSPACE_PROFILES_BADGES)
     .insert(badge)
     .first();
