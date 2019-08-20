@@ -1,5 +1,5 @@
 const db = require('../dbConfig')
-const dbTable = 'CONTACTS'
+const dbTable = 'WORKSPACE-PROFILES'
 
 module.exports = {
     add,
