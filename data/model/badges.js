@@ -1,4 +1,5 @@
 const db = require('../dbConfig');
+const BADGES = 'BADGES';
 
 module.exports = {
   find,
@@ -9,28 +10,28 @@ module.exports = {
 };
 
 function find(){
-  return db('BADGES');
+  return db(BADGES);
 };
 
 function findById(id){
-  return db('BADGES')
+  return db(BADGES)
     .where({ id });
 };
 
 function insert(badge){
-  return db('BADGES')
+  return db(BADGES)
     .insert(badge)
     .first();
 };
 
 function update(id, badge){
-  return db('BADGES')
+  return db(BADGES)
     .where({ id })
     .update(badge);
 };
 
 function remove(id){
-  return db('BADGES')
+  return db(BADGES)
     .where({ id })
     .del();
 };
