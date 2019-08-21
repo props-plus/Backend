@@ -1,10 +1,10 @@
-const propsReceivedCard = (sender, props) => {
+const propsReceivedCard = (sender, receiver, props) => {
   return [
   	{
   		"type": "section",
   		"text": {
   			"type": "mrkdwn",
-  			"text": `Congratulations! You have received a Props from ${sender}`
+  			"text": `Congratulations, ${receiver}! You have received a Props from ${sender}`
   		}
   	},
   	{
