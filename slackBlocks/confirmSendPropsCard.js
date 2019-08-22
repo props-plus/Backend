@@ -25,7 +25,7 @@ const sendPropsCard = (receiver, message) => {
                         text: 'Good'
                     },
                     style: 'primary',
-                    value: 'click_me_123'
+                    value: 'GOOD'
                 },
                 {
                     type: 'button',
@@ -35,7 +35,7 @@ const sendPropsCard = (receiver, message) => {
                         text: 'Great'
                     },
                     style: 'primary',
-                    value: 'click_me_123'
+                    value: 'GREAT'
                 },
                 {
                     type: 'button',
@@ -45,7 +45,7 @@ const sendPropsCard = (receiver, message) => {
                         text: 'Excellent'
                     },
                     style: 'primary',
-                    value: 'click_me_123'
+                    value: 'EXCELLENT'
                 },
                 {
                     type: 'button',
@@ -55,7 +55,7 @@ const sendPropsCard = (receiver, message) => {
                         text: 'Amazing!'
                     },
                     style: 'primary',
-                    value: 'click_me_123'
+                    value: 'AMAZING!'
                 },
                 {
                     type: 'button',
@@ -65,7 +65,7 @@ const sendPropsCard = (receiver, message) => {
                         text: 'Deny'
                     },
                     style: 'danger',
-                    value: 'click_me_123'
+                    value: 'Cancel'
                 }
             ]
         }

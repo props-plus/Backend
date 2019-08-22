@@ -5,6 +5,7 @@ const morgan = require('morgan')
 const cors = require('cors')
 const oauth = require('./routes/oauth')
 const props = require('./routes/propsSlashCommand')
+const button = require('./routes/button')
 
 server.use(express.json())
 server.use(helmet())
@@ -12,6 +13,7 @@ server.use(morgan('dev'))
 server.use(cors())
 //server.use('/oauth', oauth)
 server.use('/props', props)
+server.use('/buttontest', button)
 
 server.post('/props', (req, res) => {
     console.log(req.query)
