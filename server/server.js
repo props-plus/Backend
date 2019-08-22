@@ -13,6 +13,11 @@ server.use(cors())
 //server.use('/oauth', oauth)
 server.use('/props', props)
 
+server.post('/props', (req, res) => {
+    console.log(req.query)
+    res.json(req)
+})
+
 server.get('/', (req, res) => {
     res.json({ message: 'You have reached the api' })
 })
