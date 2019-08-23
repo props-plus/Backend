@@ -12,11 +12,12 @@ router.post('/', async (req, res) => {
   const { response_url, text, user_id, user_name } = req.body;
 
   const arr = text.split(' ');
-  const [ user, message ] = arr;
+  const [ user, msg ] = arr;
   const trueuser = user.substring(1);
+  const truemsg = arr.slice(1, arr.length).join(' ');
 
   res.json({
-    blocks: confirmSendPropsCard(trueuser, message)
+    blocks: confirmSendPropsCard(trueuser, truemsg)
   });
 })
 
