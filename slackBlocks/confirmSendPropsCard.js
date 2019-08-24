@@ -1,4 +1,13 @@
 const sendPropsCard = (receiver, message) => {
+
+    const receiveMessage = (propValue, receiver, message) => {
+      return {
+        prop: propValue,
+        receiver: receiver,
+        message: message
+      }
+    }
+
     return [
         {
             type: 'section',
@@ -25,7 +34,7 @@ const sendPropsCard = (receiver, message) => {
                         text: 'Good'
                     },
                     style: 'primary',
-                    value: 'GOOD'
+                    value: JSON.stringify(receiveMessage('GOOD', receiver, message))
                 },
                 {
                     type: 'button',
@@ -35,7 +44,7 @@ const sendPropsCard = (receiver, message) => {
                         text: 'Great'
                     },
                     style: 'primary',
-                    value: 'GREAT'
+                    value: JSON.stringify(receiveMessage('GREAT', receiver, message))
                 },
                 {
                     type: 'button',
@@ -45,7 +54,7 @@ const sendPropsCard = (receiver, message) => {
                         text: 'Excellent'
                     },
                     style: 'primary',
-                    value: 'EXCELLENT'
+                    value: JSON.stringify(receiveMessage('EXCELLENT', receiver, message))
                 },
                 {
                     type: 'button',
@@ -55,7 +64,7 @@ const sendPropsCard = (receiver, message) => {
                         text: 'Amazing!'
                     },
                     style: 'primary',
-                    value: 'AMAZING!'
+                    value: JSON.stringify(receiveMessage('AMAZING', receiver, message))
                 },
                 {
                     type: 'button',
