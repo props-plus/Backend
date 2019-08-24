@@ -25,11 +25,11 @@ router.post('/', async (req, res) => {
     }
   });
 
-  const userID = userlist.data.members.find(recuser => recuser.name === receiver).id;
+  const userId = userlist.data.members.find(recuser => recuser.name === receiver).id;
 
   //console.log(userID);
   //console.log(receiver);
-  sendDM(userID, message);
+  sendDM(userId, receiver, username, prop, message);
 
   // const user = await axios.get('https://slack.com/api/users.info', {
   //   params: {
