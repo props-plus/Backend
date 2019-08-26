@@ -4,9 +4,12 @@
   "description": "Backend for Props+",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "cross-env DB_ENV=testing jest --watch",
     "start": "node index.js",
     "server": "nodemon index.js"
+  },
+  "jest": {
+    "testEnvirnoment": "node"
   },
   "repository": {
     "type": "git",
@@ -27,9 +30,13 @@
     "knex": "^0.19.2",
     "knex-cleaner": "^1.3.0",
     "morgan": "^1.9.1",
-    "pg": "^7.12.1"
+    "pg": "^7.12.1",
+    "request": "^2.88.0"
   },
   "devDependencies": {
-    "nodemon": "^1.19.1"
+    "cross-env": "^5.2.0",
+    "jest": "^24.9.0",
+    "nodemon": "^1.19.1",
+    "supertest": "^4.0.2"
   }
 }
