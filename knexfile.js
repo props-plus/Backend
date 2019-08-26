@@ -3,7 +3,8 @@ require("dotenv").config();
 const devConnection = process.env.DEV_DB;
 const stage1 = process.env.STAGE1;
 const stage2 = process.env.STAGE2;
-const prod = process.env.PROD;
+const prod = process.env.PROD
+const testing = process.env.DB_ENV;
 const pg = require("pg");
 pg.defaults.ssl = true;
 
@@ -25,16 +26,14 @@ module.exports = {
     }
   },
   testing: {
-    client: "sqlite3",
-    connection: {
-      filename: "./data/test.db3"
-    },
+    client: "pg",
+    connection: process.env.DB_ENV,
     useNullAsDefault: true,
     migrations: {
-      directory: "./data/migrations"
+      directory: "./data/tests/migrations"
     },
     seeds: {
-      directory: "./data/seeds"
+      directory: "./data/tests/seeds"
     }
   }
 };
