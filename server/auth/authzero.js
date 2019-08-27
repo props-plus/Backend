@@ -22,17 +22,17 @@ const verifyToken = jwt({
 });
 
 router.get("/", verifyToken, (req, res) => {
-  res.status(200).json("private route");
+  res.status(200).json({ message: "Authorized" });
 });
 
 // Testing admin scope for admin dashboard.
 
-const adminScope = jwtAuthz(["read:messages"]);
+// const adminScope = jwtAuthz(["read:messages"]);
 
-router.get("/admin", verifyToken, adminScope, function(req, res) {
-  res.json({
-    message: "You have admin access."
-  });
-});
+// router.get("/admin", verifyToken, adminScope, function(req, res) {
+//   res.json({
+//     message: "You have admin access."
+//   });
+// });
 
 module.exports = router;
