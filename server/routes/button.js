@@ -1,7 +1,7 @@
 const axios = require('axios');
 
-const propsReceivedCard = require('../../slackBlocks/receivedPropsCard');
-const confirmSendPropsCard = require('../../slackBlocks/confirmSendPropsCard');
+// const propsReceivedCard = require('../../slackBlocks/receivedPropsCard');
+// const confirmSendPropsCard = require('../../slackBlocks/confirmSendPropsCard');
 const {sendDM} = require('../../slackbot');
 
 const express = require('express');
@@ -24,6 +24,7 @@ router.post('/', async (req, res) => {
       token: process.env.BOT_TOKEN
     }
   });
+  //console.log(userlist.data.members);
 
   const userId = userlist.data.members.find(recuser => recuser.name === receiver).id;
 
