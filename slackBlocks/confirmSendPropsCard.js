@@ -74,7 +74,7 @@ const sendPropsCard = (receiver, message) => {
                         text: 'Deny'
                     },
                     style: 'danger',
-                    value: 'Cancel'
+                    value: JSON.stringify(receiveMessage('Cancel', receiver, message))
                 }
             ]
         }

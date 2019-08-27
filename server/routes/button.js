@@ -1,7 +1,6 @@
 const axios = require('axios');
 
-// const propsReceivedCard = require('../../slackBlocks/receivedPropsCard');
-// const confirmSendPropsCard = require('../../slackBlocks/confirmSendPropsCard');
+const confirmationCard = require('../../slackBlocks/confirmationCard');
 const {sendDM} = require('../../slackbot');
 
 const express = require('express');
@@ -16,31 +15,23 @@ router.post('/', async (req, res) => {
   const { username } = await JSON.parse(req.body.payload).user;
   const actions = payload.actions[0];
   const { prop, receiver, message } = JSON.parse(actions.value);
-
-  //console.log(process.env.BOT_TOKEN);
+  const responseURL = payload.response_url;
 
   const userlist = await axios.get('https://slack.com/api/users.list', {
     params: {
       token: process.env.BOT_TOKEN
     }
   });
-  //console.log(userlist.data.members);
 
   const userId = userlist.data.members.find(recuser => recuser.name === receiver).id;
 
-  //console.log(userID);
-  //console.log(receiver);
-  sendDM(userId, receiver, username, prop, message);
+  if(prop !== 'Cancel'){
+    sendDM(userId, receiver, username, prop, message);
+  }
 
-  // const user = await axios.get('https://slack.com/api/users.info', {
-  //   params: {
-  //     token: process.env.BOT_TOKEN,
-  //     user: 'UMJV92RH6'
-  //   }
-  // });
-  //
-  // console.log(user);
-
+  axios.post(responseURL, {
+    blocks: confirmationCard(receiver, prop)
+  })
 
 });
 

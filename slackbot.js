@@ -6,7 +6,6 @@ const receivedPropsCard = require('./slackBlocks/receivedPropsCard');
 
 const sendDM = async (userId, receiver, sender, prop, message) => {
   try {
-    //console.log(process.env.BOT_TOKEN);
     const conversationResponse = await axios.post('https://slack.com/api/conversations.open',
       {
         users: userId
@@ -17,7 +16,6 @@ const sendDM = async (userId, receiver, sender, prop, message) => {
         }
       }
     );
-    //console.log(conversationResponse);
 
     const postResponse = await axios.post('https://slack.com/api/chat.postMessage',
       {
@@ -30,7 +28,6 @@ const sendDM = async (userId, receiver, sender, prop, message) => {
         }
       }
     );
-    //console.log(postResponse);
 
   } catch (error) {
     throw error;
