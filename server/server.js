@@ -11,7 +11,7 @@ server.use(express.json())
 server.use(helmet())
 server.use(morgan('dev'))
 server.use(cors())
-//server.use('/oauth', oauth)
+server.use('/oauth', oauth)
 server.use('/props', props)
 server.use('/buttontest', button)
 
