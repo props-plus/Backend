@@ -1,4 +1,7 @@
 const axios = require('axios');
+const { WebClient } = require('@slack/web-api');
+
+const web = new WebClient(process.env.BOT_TOKEN);
 
 const confirmationCard = require('../../slackBlocks/confirmationCard');
 const {sendDM} = require('../../slackbot');
@@ -17,21 +20,42 @@ router.post('/', async (req, res) => {
   const { prop, receiver, message } = JSON.parse(actions.value);
   const responseURL = payload.response_url;
 
-  const userlist = await axios.get('https://slack.com/api/users.list', {
-    params: {
-      token: process.env.BOT_TOKEN
+  const token = payload.token;
+
+  console.log('*****TOKEN*****', token);
+  // const userlist = await axios.get('https://slack.com/api/users.list', {
+  //   params: {
+  //     token: process.env.BOT_TOKEN
+  //   }
+  // });
+  console.log('Before async');
+  (async () => {
+    try {
+      const result = await web.auth.test({
+        token: process.env.BOT_TOKEN
+      })
+
+      console.log(result)
+    } catch (e) {
+      console.log(e);
     }
-  });
 
-  const userId = userlist.data.members.find(recuser => recuser.name === receiver).id;
+    return result;
+  // Post a message to the channel, and await the result.
+  // Find more arguments and details of the response: https://api.slack.com/methods/chat.postMessage
 
-  if(prop !== 'Cancel'){
-    sendDM(userId, receiver, username, prop, message);
-  }
+  // The result contains an identifier for the message, `ts`.
+})();
 
-  axios.post(responseURL, {
-    blocks: confirmationCard(receiver, prop)
-  })
+  //const userId = userlist.members.find(recuser => recuser.name === receiver).id;
+
+  // if(prop !== 'Cancel'){
+  //   sendDM(userId, receiver, username, prop, message);
+  // }
+  //
+  // axios.post(responseURL, {
+  //   blocks: confirmationCard(receiver, prop)
+  // })
 
 });
 
