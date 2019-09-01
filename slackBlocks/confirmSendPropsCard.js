@@ -1,11 +1,25 @@
 const sendPropsCard = (receiver, message, isAnon) => {
-    const receiveMessage = (propValue, receiver, message) => {
+    const receiveMessage = (propValue, receiver, message, isAnon) => {
         return {
             prop: propValue,
-            receiver: receiver,
-            message: message
+            receiver,
+            message,
+            isAnon
         }
     }
+
+    const buttons = ['Good', 'Great', 'Excellent', 'Amazing', 'Cancel']
+
+    const buttonList = buttons.map(button => ({
+        type: 'button',
+        text: {
+            type: 'plain_text',
+            emoji: true,
+            text: button
+        },
+        style: button === 'Cancel' ? 'danger' : 'primary',
+        value: JSON.stringify(receiveMessage(button, receiver, message, isAnon))
+    }))
 
     return [
         {
@@ -24,68 +38,7 @@ const sendPropsCard = (receiver, message, isAnon) => {
         },
         {
             type: 'actions',
-            elements: [
-                {
-                    type: 'button',
-                    text: {
-                        type: 'plain_text',
-                        emoji: true,
-                        text: 'Good'
-                    },
-                    style: 'primary',
-                    value: JSON.stringify(
-                        receiveMessage('GOOD', receiver, message, isAnon)
-                    )
-                },
-                {
-                    type: 'button',
-                    text: {
-                        type: 'plain_text',
-                        emoji: true,
-                        text: 'Great'
-                    },
-                    style: 'primary',
-                    value: JSON.stringify(
-                        receiveMessage('GREAT', receiver, message, isAnon)
-                    )
-                },
-                {
-                    type: 'button',
-                    text: {
-                        type: 'plain_text',
-                        emoji: true,
-                        text: 'Excellent'
-                    },
-                    style: 'primary',
-                    value: JSON.stringify(
-                        receiveMessage('EXCELLENT', receiver, message, isAnon)
-                    )
-                },
-                {
-                    type: 'button',
-                    text: {
-                        type: 'plain_text',
-                        emoji: true,
-                        text: 'Amazing!'
-                    },
-                    style: 'primary',
-                    value: JSON.stringify(
-                        receiveMessage('AMAZING', receiver, message, isAnon)
-                    )
-                },
-                {
-                    type: 'button',
-                    text: {
-                        type: 'plain_text',
-                        emoji: true,
-                        text: 'Deny'
-                    },
-                    style: 'danger',
-                    value: JSON.stringify(
-                        receiveMessage('Cancel', receiver, message)
-                    )
-                }
-            ]
+            elements: buttonList
         }
     ]
 }

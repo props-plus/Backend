@@ -18,7 +18,6 @@ server.use('/anon-props', anonProps)
 server.use('/buttonaction', button)
 
 server.post('/props', (req, res) => {
-    console.log(req.query)
     res.json(req)
 })
 

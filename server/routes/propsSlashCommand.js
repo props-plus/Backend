@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
     const msg = arr.slice(1, arr.length).join(' ')
 
     res.json({
-        blocks: confirmSendPropsCard(trueuser, msg)
+        blocks: confirmSendPropsCard(trueuser, msg, false)
     })
 })
 
