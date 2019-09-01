@@ -1,6 +1,4 @@
-const propsReceivedCard = require('../../slackBlocks/receivedPropsCard')
 const confirmSendPropsCard = require('../../slackBlocks/confirmSendPropsCard')
-
 const express = require('express')
 const router = express.Router()
 
@@ -12,7 +10,7 @@ router.post('/', async (req, res) => {
     const arr = text.split(' ')
     const [user] = arr
     const recipient = user.substring(1)
-    const msg = arr.slice(1, arr.length).join(' ')
+    const msg = arr.slice(1).join(' ')
 
     res.json({
         blocks: confirmSendPropsCard(recipient, msg, true)

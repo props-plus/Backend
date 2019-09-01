@@ -1,13 +1,10 @@
 const axios = require('axios')
-const { WebClient } = require('@slack/web-api')
-
-const web = new WebClient(process.env.BOT_TOKEN)
-
-const confirmationCard = require('../../slackBlocks/confirmationCard')
-const { sendDM } = require('../../slackbot')
-
 const express = require('express')
+const { sendDM } = require('../../slackbot')
+const { WebClient } = require('@slack/web-api')
+const confirmationCard = require('../../slackBlocks/confirmationCard')
 const router = express.Router()
+const web = new WebClient(process.env.BOT_TOKEN)
 
 router.use(express.json())
 router.use(express.urlencoded())
