@@ -9,14 +9,13 @@ router.use(express.urlencoded())
 
 router.post('/', async (req, res) => {
     const { text } = req.body
-
     const arr = text.split(' ')
     const [user] = arr
-    const trueuser = user.substring(1)
+    const recipient = user.substring(1)
     const msg = arr.slice(1, arr.length).join(' ')
 
     res.json({
-        blocks: confirmSendPropsCard(trueuser, msg)
+        blocks: confirmSendPropsCard(recipient, msg)
     })
 })
 

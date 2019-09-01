@@ -1,11 +1,10 @@
-const sendPropsCard = (receiver, message) => {
-
+const sendPropsCard = (receiver, message, isAnon) => {
     const receiveMessage = (propValue, receiver, message) => {
-      return {
-        prop: propValue,
-        receiver: receiver,
-        message: message
-      }
+        return {
+            prop: propValue,
+            receiver: receiver,
+            message: message
+        }
     }
 
     return [
@@ -34,7 +33,9 @@ const sendPropsCard = (receiver, message) => {
                         text: 'Good'
                     },
                     style: 'primary',
-                    value: JSON.stringify(receiveMessage('GOOD', receiver, message))
+                    value: JSON.stringify(
+                        receiveMessage('GOOD', receiver, message, isAnon)
+                    )
                 },
                 {
                     type: 'button',
@@ -44,7 +45,9 @@ const sendPropsCard = (receiver, message) => {
                         text: 'Great'
                     },
                     style: 'primary',
-                    value: JSON.stringify(receiveMessage('GREAT', receiver, message))
+                    value: JSON.stringify(
+                        receiveMessage('GREAT', receiver, message, isAnon)
+                    )
                 },
                 {
                     type: 'button',
@@ -54,7 +57,9 @@ const sendPropsCard = (receiver, message) => {
                         text: 'Excellent'
                     },
                     style: 'primary',
-                    value: JSON.stringify(receiveMessage('EXCELLENT', receiver, message))
+                    value: JSON.stringify(
+                        receiveMessage('EXCELLENT', receiver, message, isAnon)
+                    )
                 },
                 {
                     type: 'button',
@@ -64,7 +69,9 @@ const sendPropsCard = (receiver, message) => {
                         text: 'Amazing!'
                     },
                     style: 'primary',
-                    value: JSON.stringify(receiveMessage('AMAZING', receiver, message))
+                    value: JSON.stringify(
+                        receiveMessage('AMAZING', receiver, message, isAnon)
+                    )
                 },
                 {
                     type: 'button',
@@ -74,7 +81,9 @@ const sendPropsCard = (receiver, message) => {
                         text: 'Deny'
                     },
                     style: 'danger',
-                    value: JSON.stringify(receiveMessage('Cancel', receiver, message))
+                    value: JSON.stringify(
+                        receiveMessage('Cancel', receiver, message)
+                    )
                 }
             ]
         }
