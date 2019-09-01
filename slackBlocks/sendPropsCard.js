@@ -1,4 +1,8 @@
-const sendPropsCard = (receiver, message, isAnon) => {
+const sendPropsCard = obj => {
+    let { receiver, message, isAnon } = obj
+    //setting default value of message requires unicode character --using single space
+    message = message || ' '
+
     const receiveMessage = (propValue, receiver, message, isAnon) => {
         return {
             prop: propValue,

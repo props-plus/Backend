@@ -3,12 +3,13 @@ const axios = require('axios')
 
 const receivedPropsCard = require('./slackBlocks/receivedPropsCard')
 
-const sendDM = async (userId, receiver, sender, prop, message) => {
+const sendPropsToReceiver = async obj => {
+    const { userID, receiver, sendersName, prop, message, isAnon } = obj
     try {
         const conversationResponse = await axios.post(
             'https://slack.com/api/conversations.open',
             {
-                users: userId
+                users: userID
             },
             {
                 headers: {
@@ -21,7 +22,13 @@ const sendDM = async (userId, receiver, sender, prop, message) => {
             'https://slack.com/api/chat.postMessage',
             {
                 channel: conversationResponse.data.channel.id,
-                blocks: receivedPropsCard(sender, receiver, prop, message)
+                blocks: receivedPropsCard(
+                    sendersName,
+                    receiver,
+                    prop,
+                    message,
+                    isAnon
+                )
             },
             {
                 headers: {
@@ -35,5 +42,5 @@ const sendDM = async (userId, receiver, sender, prop, message) => {
 }
 
 module.exports = {
-    sendDM
+    sendPropsToReceiver
 }
