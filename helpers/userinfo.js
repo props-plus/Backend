@@ -12,7 +12,7 @@ const userinfo = function(token, user_id) {
         },
         (error, resp, body) => {
             if (error) {
-                console.log(error)
+                console.error(error)
             } else {
                 userData = JSON.parse(body)
             }
