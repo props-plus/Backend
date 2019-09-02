@@ -6,6 +6,7 @@ exports.up = async function(knex) {
       tbl.string('name').notNullable()
       tbl.integer('minimum-value').defaultTo(0)
       tbl.integer('minimum-prop-count').defaultTo(0)
+      tbl.boolean('isVisible')
       tbl.string('image')
   })
 };
