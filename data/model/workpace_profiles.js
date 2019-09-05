@@ -1,5 +1,5 @@
 const db = require('../dbConfig')
-const dbTable = 'WORKSPACE-PROFILES'
+const dbTable = 'WORKSPACE_PROFILES'
 
 module.exports = {
     add,
@@ -21,6 +21,12 @@ function find() {
 function findById(id) {
     return db(dbTable)
         .where({ id })
+        .first()
+}
+
+function findById(userID) {
+    return db(dbTable)
+        .where({ userID })
         .first()
 }
 

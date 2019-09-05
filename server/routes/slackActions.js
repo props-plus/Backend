@@ -6,7 +6,9 @@ const confirmationCard = require('../../slackBlocks/confirmationCard')
 const router = express.Router()
 const web = new WebClient(process.env.BOT_TOKEN)
 const ws = require('../../data/model/workspace')
+const wsp = require('../../data/migrations/20190818112802_workspace_profiles')
 const WORKSPACES = 'WORKSPACES'
+const WORKSPACE_PROFILES = 'WORKSPACE_PROFILES'
 
 router.use(express.json())
 router.use(express.urlencoded())
@@ -46,7 +48,8 @@ router.post('/', async (req, res) => {
 
     //check if rec exists
     async function handleSendProps() {
-        console.log('sendprops funciton ***************')
+        //check out db for userid
+
         try {
             const list = await web.users.list({
                 token: process.env.BOT_TOKEN
