@@ -1,29 +1,27 @@
-const PROPS = 'PROPS'
+const WORKSPACE_PROFILES_BADGES = 'WORKSPACE_PROFILES_BADGES'
 const WORKSPACE_PROFILES = 'WORKSPACE_PROFILES'
+const BADGES = 'BADGES'
 
 exports.up = async function(knex) {
-    await knex.schema.createTable(PROPS, tbl => {
-        tbl.increments()
-        tbl.timestamp('createdAt').defaultTo(knex.fn.now())
-        tbl.integer('value')
-        tbl.text('message')
-        tbl.integer('fk_to_workspace_profile_id')
+    await knex.schema.createTable(WORKSPACE_PROFILES_BADGES, tbl => {
+        tbl.integer('fk_workspace_profile_id')
             .unsigned()
             .notNullable()
             .references('id')
             .inTable(WORKSPACE_PROFILES)
             .onDelete('CASCADE')
             .onUpdate('CASCADE')
-        tbl.integer('fk_from_workspace_profile_id')
+
+        tbl.integer('fk_badge_id')
             .unsigned()
             .notNullable()
             .references('id')
-            .inTable(WORKSPACE_PROFILES)
+            .inTable(BADGES)
             .onDelete('CASCADE')
             .onUpdate('CASCADE')
     })
 }
 
 exports.down = async function(knex) {
-    await knex.schema.dropTableIfExists(PROPS)
+    await knex.schema.dropTableIfExists(WORKSPACE_PROFILES_BADGES)
 }
