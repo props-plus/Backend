@@ -5,6 +5,8 @@ const { WebClient } = require('@slack/web-api')
 const confirmationCard = require('../../slackBlocks/confirmationCard')
 const router = express.Router()
 const web = new WebClient(process.env.BOT_TOKEN)
+const ws = require('../../data/model/workspace')
+const WORKSPACES = 'WORKSPACES'
 
 router.use(express.json())
 router.use(express.urlencoded())
@@ -18,7 +20,33 @@ router.post('/', async (req, res) => {
     const { prop, receiver, message, isAnon } = JSON.parse(actions.value)
     const responseURL = payload.response_url
 
-    ;(async () => {
+    //check if workspace exists
+    try {
+        const teamExists = await ws.findByTeamID(payload.team.id)
+        if (!teamExists) {
+            const teamInfo = await web.team.info({
+                token: process.env.BOT_TOKEN,
+                team: payload.team.id
+            })
+            //create workspace object
+            const { id, domain, icon } = teamInfo.team
+            const wsObj = {
+                teamID: id,
+                name: domain,
+                teamIconSmall: icon.image_34,
+                teamIconMed: icon.image_44,
+                teamIconLarge: icon.image_68
+            }
+            const dbEntry = await ws.add(WORKSPACES, wsObj)
+        }
+        handleSendProps()
+    } catch (error) {
+        console.error(error)
+    }
+
+    //check if rec exists
+    async function handleSendProps() {
+        console.log('sendprops funciton ***************')
         try {
             const list = await web.users.list({
                 token: process.env.BOT_TOKEN
@@ -28,6 +56,7 @@ router.post('/', async (req, res) => {
                     receiverUser => receiverUser.name === receiver
                 )
                 const userID = user.id
+                console.log(user)
 
                 if (prop !== 'Cancel') {
                     const sendPropsOptions = {
@@ -48,7 +77,7 @@ router.post('/', async (req, res) => {
         } catch (e) {
             console.error(e)
         }
-    })()
+    }
 })
 
 module.exports = router
