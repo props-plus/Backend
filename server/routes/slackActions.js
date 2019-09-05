@@ -6,7 +6,7 @@ const confirmationCard = require('../../slackBlocks/confirmationCard')
 const router = express.Router()
 const web = new WebClient(process.env.BOT_TOKEN)
 const ws = require('../../data/model/workspace')
-const wsp = require('../../data/migrations/20190818112802_workspace_profiles')
+const wsp = require('../../data/model/workpace_profiles')
 const WORKSPACES = 'WORKSPACES'
 const WORKSPACE_PROFILES = 'WORKSPACE_PROFILES'
 
@@ -22,7 +22,6 @@ router.post('/', async (req, res) => {
     const { prop, receiver, message, isAnon } = JSON.parse(actions.value)
     const responseURL = payload.response_url
 
-    //check if workspace exists
     try {
         const teamExists = await ws.findByTeamID(payload.team.id)
         if (!teamExists) {
@@ -30,7 +29,6 @@ router.post('/', async (req, res) => {
                 token: process.env.BOT_TOKEN,
                 team: payload.team.id
             })
-            //create workspace object
             const { id, domain, icon } = teamInfo.team
             const wsObj = {
                 teamID: id,
@@ -46,39 +44,86 @@ router.post('/', async (req, res) => {
         console.error(error)
     }
 
-    //check if rec exists
     async function handleSendProps() {
-        //check out db for userid
+        if (prop == 'Cancel') {
+            axios.post(responseURL, {
+                blocks: confirmationCard(receiver, prop)
+            })
+        }
+
+        const user = await wsp.findByUserName(receiver)
 
         try {
-            const list = await web.users.list({
-                token: process.env.BOT_TOKEN
-            })
-            if (list) {
-                const user = list.members.find(
-                    receiverUser => receiverUser.name === receiver
-                )
-                const userID = user.id
-                console.log(user)
+            if (!user) {
+                const workspaceUserList = await web.users.list({
+                    token: process.env.BOT_TOKEN
+                })
+                if (workspaceUserList) {
+                    const user = workspaceUserList.members.find(
+                        receiverUser => receiverUser.name === receiver
+                    )
 
-                if (prop !== 'Cancel') {
+                    const {
+                        id,
+                        name,
+                        real_name,
+                        profile,
+                        is_admin,
+                        is_owner,
+                        team_id
+                    } = user
+
+                    const team = await ws.findByTeamID(team_id)
+
+                    const newUserObj = {
+                        userName: name,
+                        userID: id,
+                        realName: real_name,
+                        userIconSmall: profile.image_24,
+                        userIconMed: profile.image_32,
+                        userIconLarge: profile.image_48,
+                        isOwner: is_owner,
+                        isAdmin: is_admin,
+                        fk_workspace_id: team.id
+                    }
+
+                    const newUser = await wsp.add(
+                        WORKSPACE_PROFILES,
+                        newUserObj
+                    )
+
                     const sendPropsOptions = {
-                        userID,
+                        userID: id,
                         receiver,
                         sendersName,
                         prop,
                         message,
                         isAnon
                     }
+
                     sendPropsToReceiver(sendPropsOptions)
+
+                    axios.post(responseURL, {
+                        blocks: confirmationCard(receiver, prop)
+                    })
+                }
+            } else {
+                const userExistsSendProps = {
+                    userID: user.userID,
+                    receiver,
+                    sendersName,
+                    prop,
+                    message,
+                    isAnon
                 }
 
+                sendPropsToReceiver(userExistsSendProps)
                 axios.post(responseURL, {
                     blocks: confirmationCard(receiver, prop)
                 })
             }
-        } catch (e) {
-            console.error(e)
+        } catch (error) {
+            console.error(error)
         }
     }
 })

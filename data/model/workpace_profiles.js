@@ -7,7 +7,8 @@ module.exports = {
     findById,
     remove,
     update,
-    updateKey
+    updateKey,
+    findByUserName
 }
 
 function add(dbTable, obj) {
@@ -24,9 +25,9 @@ function findById(id) {
         .first()
 }
 
-function findById(userID) {
+function findByUserName(userName) {
     return db(dbTable)
-        .where({ userID })
+        .where({ userName })
         .first()
 }
 
