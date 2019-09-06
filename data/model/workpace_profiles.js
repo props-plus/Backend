@@ -12,7 +12,9 @@ module.exports = {
 }
 
 function add(dbTable, obj) {
-    return db(dbTable).insert(obj)
+    return db(dbTable)
+        .insert(obj)
+        .returning('*')
 }
 
 function find() {

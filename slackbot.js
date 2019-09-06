@@ -18,6 +18,8 @@ const sendPropsToReceiver = async obj => {
             }
         )
 
+        // console.log('CONVERSATION!!!!!!!!!!!!!!!!!!!!!!!', conversationResponse)
+
         await axios.post(
             'https://slack.com/api/chat.postMessage',
             {

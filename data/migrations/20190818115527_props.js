@@ -7,6 +7,7 @@ exports.up = async function(knex) {
         tbl.timestamp('createdAt').defaultTo(knex.fn.now())
         tbl.integer('value')
         tbl.text('message')
+        tbl.text('isAnon').notNullable()
         tbl.integer('fk_to_workspace_profile_id')
             .unsigned()
             .notNullable()
