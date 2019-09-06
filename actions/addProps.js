@@ -32,7 +32,6 @@ const insertProp = async obj => {
         }
 
         const propReturn = await p.add(PROPS, newProp)
-        console.log('***********************', propReturn)
     } catch (error) {
         console.error(error)
     }
