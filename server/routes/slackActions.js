@@ -4,6 +4,7 @@ const { sendPropsToReceiver } = require('../../slackbot')
 const confirmationCard = require('../../slackBlocks/confirmationCard')
 const userIdCheck = require('../../actions/userIDCheck')
 const teamIdCheck = require('../../actions/teamIDCheck')
+const addProps = require('../../actions/addProps')
 const router = express.Router()
 
 router.use(express.json())
@@ -12,7 +13,7 @@ router.use(express.urlencoded())
 router.post('/', async (req, res) => {
     //JSON.parse on payload, due to single quotes
     const payload = JSON.parse(req.body.payload)
-    const { name: sendersName } = payload.user
+    const { name: sender } = payload.user
     const actions = payload.actions[0]
     //JSON.parse on value due to stringified object on value key
     const { prop, receiver, message, isAnon } = JSON.parse(actions.value)
@@ -20,28 +21,37 @@ router.post('/', async (req, res) => {
 
     try {
         if (prop == 'Cancel') {
-            axios.post(responseURL, {
+            await axios.post(responseURL, {
                 blocks: confirmationCard(receiver, prop)
             })
         }
 
         const team = await teamIdCheck(payload)
-        const user = await userIdCheck(receiver)
-        console.log('team', team)
-        console.log('user', user)
+        const propsSender = await userIdCheck(sender)
+        const propsReceiver = await userIdCheck(receiver)
 
         const sendPropsOptions = {
-            userID: user.userID,
+            userID: propsReceiver.userID,
             receiver,
-            sendersName,
+            sender,
             prop,
             message,
             isAnon
         }
 
-        sendPropsToReceiver(sendPropsOptions)
+        const propDBEntry = {
+            ...sendPropsOptions,
+            senderID: propsSender.id,
+            receiverID: propsReceiver.id,
+            prop
+        }
 
-        axios.post(responseURL, {
+        const test = await addProps(propDBEntry)
+        console.log(test)
+
+        await sendPropsToReceiver(sendPropsOptions)
+
+        await axios.post(responseURL, {
             blocks: confirmationCard(receiver, prop)
         })
     } catch (error) {
