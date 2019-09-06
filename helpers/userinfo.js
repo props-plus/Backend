@@ -1,6 +1,6 @@
 const request = require('request')
 
-const userinfo = function(token, user_id) {
+const userInfo = function(token, user_id) {
     let userData = request(
         {
             url: 'https://slack.com/api/users.info',
@@ -21,4 +21,4 @@ const userinfo = function(token, user_id) {
     return userData
 }
 
-module.exports = userinfo
+module.exports = userInfo
