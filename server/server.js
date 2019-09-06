@@ -7,6 +7,7 @@ const oauth = require('./routes/oauth')
 const props = require('./routes/props')
 const button = require('./routes/slackActions')
 const anonProps = require('./routes/anonProps')
+const info = require('./routes/info')
 
 server.use(express.json())
 server.use(helmet())
@@ -16,6 +17,7 @@ server.use('/oauth', oauth)
 server.use('/props', props)
 server.use('/anon-props', anonProps)
 server.use('/slackActions', button)
+server.use('/info', info)
 
 server.post('/props', (req, res) => {
     res.json(req)

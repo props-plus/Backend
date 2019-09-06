@@ -1,20 +1,16 @@
 const propsProfile = obj => {
-    const objValues = Object.values(obj)[
+    const { remainingProps, propsRenewal, totalPropsReceived, avatar } = obj
+    return [
         {
             type: 'section',
             text: {
                 type: 'mrkdwn',
-                text: `*Remaining Props*: ${
-                    objValues[0]
-                }\n*Props Renewal:* PLACEHOLDER\n*Total Props Received*: ${
-                    objValues[1]
-                }`
+                text: `*Remaining Props*: ${remainingProps}\n*Props Renewal:* ${propsRenewal} days remaining\n*Total Props Received*: ${totalPropsReceived}`
             },
             accessory: {
                 type: 'image',
-                image_url:
-                    'https://api.slack.com/img/blocks/bkb_template_images/approvalsNewDevice.png',
-                alt_text: 'computer thumbnail'
+                image_url: avatar,
+                alt_text: 'Avatar Image'
             }
         }
     ]

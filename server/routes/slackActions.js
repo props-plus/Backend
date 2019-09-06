@@ -32,7 +32,7 @@ router.post('/', async (req, res) => {
 
         const sendPropsOptions = {
             userID: propsReceiver.userID,
-            receiver,
+            receiver: propsReceiver.realName,
             sender,
             prop,
             message,
@@ -46,8 +46,7 @@ router.post('/', async (req, res) => {
             prop
         }
 
-        const test = await addProps(propDBEntry)
-        console.log(test)
+        await addProps(propDBEntry)
 
         await sendPropsToReceiver(sendPropsOptions)
 
