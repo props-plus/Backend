@@ -26,10 +26,9 @@ function findByDateRange(obj) {
     const from = `${year}-${month}-01 00:00:00.000000+00`
     const to = knex.fn.now()
     return db(dbTable)
-        .select({ fk_from_workspace_profile_id })
+        .select({ fk_from_workspace_profile_id }, 'value')
         .whereBetween('createdAt', [from, to])
-        .sum('value')
-        .first()
+        .where({ fk_from_workspace_profile_id })
 }
 
 function findByUserID(fk_to_workspace_profile_id) {

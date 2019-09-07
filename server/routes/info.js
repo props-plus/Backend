@@ -9,23 +9,19 @@ router.use(express.json())
 router.use(express.urlencoded())
 
 router.post('/', async (req, res) => {
-    // remainingProps = totalProps - sentProps
-    // propsRenew = ifFirstOfMonth issue 3000, overwrite
-    // totalPropsReceived
-    const dt = new Date()
-
     const profile = await userIDCheck(req.body.user_name)
     const { sum } = await p.findByUserID(profile.id)
 
+    const dt = new Date()
     const propDateRange = {
         year: dt.getFullYear(),
         month: ('0' + (dt.getMonth() + 1)).slice(-2),
         fk_from_workspace_profile_id: profile.id
     }
 
-    const { sum: usedProps } = await p.findByDateRange(propDateRange)
-    const remainingProps = 3000 - usedProps
-
+    const usedProps = await p.findByDateRange(propDateRange)
+    const sumPropsSent = usedProps.reduce((prev, next) => prev + next.value, 0)
+    const remainingProps = 3000 - sumPropsSent
     const propsRenewal = daysRemaining()
 
     const dummyObj = {
@@ -34,6 +30,7 @@ router.post('/', async (req, res) => {
         totalPropsReceived: sum,
         avatar: profile.userIconLarge
     }
+
     res.json({
         blocks: propsProfile(dummyObj)
     })
