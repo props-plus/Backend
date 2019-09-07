@@ -1,6 +1,6 @@
 const express = require('express')
 const request = require('request')
-const userinfo = require('../../helpers/userinfo')
+const userInfo = require('../../helpers/userInfo')
 const router = express.Router()
 const client_id = process.env.CLIENT_ID
 const client_secret = process.env.CLIENT_SECRET
@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
                     console.error(error)
                 } else {
                     body = JSON.parse(body)
-                    const user = await userinfo(body.access_token, body.user_id)
+                    const user = await userInfo(body.access_token, body.user_id)
                     res.json(user)
                 }
             }
