@@ -5,7 +5,9 @@ const propsProfile = obj => {
             type: 'section',
             text: {
                 type: 'mrkdwn',
-                text: `*Remaining Props*: ${remainingProps}\n*Props Renewal:* ${propsRenewal} days remaining\n*Total Props Received*: ${totalPropsReceived}`
+                text: `*Remaining Props*: ${remainingProps}\n*Props Renewal:* ${propsRenewal} days remaining\n*Total Props Received*: ${
+                    totalPropsReceived ? totalPropsReceived : 0
+                }`
             },
             accessory: {
                 type: 'image',

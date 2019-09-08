@@ -46,16 +46,19 @@ router.post('/', async (req, res) => {
                 ...sendPropsOptions,
                 senderID: propsSender.id,
                 receiverID: propsReceiver.id,
-                prop
+                prop,
+                responseURL
             }
 
-            await addProps(propDBEntry)
+            const isPropsAdded = await addProps(propDBEntry)
 
-            await sendPropsToReceiver(sendPropsOptions)
+            if (isPropsAdded) {
+                await sendPropsToReceiver(sendPropsOptions)
 
-            await axios.post(responseURL, {
-                blocks: confirmationCard(receiver, prop)
-            })
+                await axios.post(responseURL, {
+                    blocks: confirmationCard(receiver, prop)
+                })
+            }
         }
     } catch (error) {
         console.error(error)
