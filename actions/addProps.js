@@ -1,8 +1,9 @@
 const p = require('../data/model/props')
+const checkPropValue = require('../helpers/checkPropValue')
 const PROPS = 'PROPS'
 
 const insertProp = async obj => {
-    const { prop, message, isAnon, receiverID, senderID } = obj
+    const { prop, message, isAnon, receiverID, senderID, responseURL } = obj
 
     try {
         let value
@@ -22,16 +23,26 @@ const insertProp = async obj => {
             default:
                 value = 0
         }
-
-        const newProp = {
-            value,
-            message,
-            isAnon,
-            fk_to_workspace_profile_id: receiverID,
-            fk_from_workspace_profile_id: senderID
+        console.log('**********************', senderID)
+        const obj = {
+            prop,
+            senderID,
+            responseURL
         }
 
-        await p.add(PROPS, newProp)
+        const test = await checkPropValue(obj)
+        if (test) {
+            const newProp = {
+                value,
+                message,
+                isAnon,
+                fk_to_workspace_profile_id: receiverID,
+                fk_from_workspace_profile_id: senderID
+            }
+
+            await p.add(PROPS, newProp)
+            return true
+        }
     } catch (error) {
         console.error(error)
     }
