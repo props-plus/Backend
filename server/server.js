@@ -6,7 +6,9 @@ const cors = require('cors')
 const oauth = require('./routes/oauth')
 const props = require('./routes/props')
 const button = require('./routes/slackActions')
+const test = require('./routes/slackActionsTest')
 const anonProps = require('./routes/anonProps')
+const recentProps = require('./routes/recentProps')
 
 server.use(express.json())
 server.use(helmet())
@@ -16,6 +18,8 @@ server.use('/oauth', oauth)
 server.use('/props', props)
 server.use('/anon-props', anonProps)
 server.use('/slackActions', button)
+server.use('/slackActionsTest', test)
+server.use('/recent-props', recentProps)
 
 server.post('/props', (req, res) => {
     res.json(req)
