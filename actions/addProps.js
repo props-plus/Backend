@@ -23,7 +23,7 @@ const insertProp = async obj => {
             default:
                 value = 0
         }
-        console.log('**********************', senderID)
+
         const obj = {
             prop,
             senderID,
