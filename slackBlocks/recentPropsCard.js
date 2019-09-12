@@ -1,12 +1,28 @@
-const recentPropsCard = (user, props) => {
+const recentPropsCard = (value, props) => {
 
-  console.log(props);
+  switch (value) {
+    case 'given':
+
+      break;
+    case 'received':
+
+      break;
+    case 'reccancel':
+      return  [{
+        type: 'section',
+        text: {
+          type: 'mrkdwn',
+          text: `Your request has been canceled.`
+        }
+      }]
+      break;
+  }
 
   const propsList = props.map(prop => ({
     type: 'section',
     text: {
       type: 'mrkdwn',
-      text: `${prop.msg} ${prop.sender}`
+      text: `You received ${prop.msg} from ${prop.sender}`
     }
   }));
 

@@ -1,46 +1,46 @@
 const recentPropsSelectionCard = () => {
   return [{
-      "type": "section",
-      "text": {
-        "type": "plain_text",
-        "text": "Select the recent props you would like to view",
-        "emoji": true
+      type: "section",
+      text: {
+        type: "plain_text",
+        text: "Select the recent props you would like to view",
+        emoji: true
       }
     },
     {
-      "type": "divider"
+      type: "divider"
     },
     {
-      "type": "actions",
-      "elements": [{
-          "type": "button",
-          "text": {
-            "type": "plain_text",
-            "emoji": true,
-            "text": "Given"
+      type: "actions",
+      elements: [{
+          type: "button",
+          text: {
+            type: "plain_text",
+            emoji: true,
+            text: "Given"
           },
-          "style": "primary",
-          "value": "given"
+          style: "primary",
+          value: "given"
         },
         {
-          "type": "button",
-          "text": {
-            "type": "plain_text",
-            "emoji": true,
-            "text": "Received"
+          type: "button",
+          text: {
+            type: "plain_text",
+            emoji: true,
+            text: "Received"
           },
-          "style": "primary",
-          "value": "received"
+          style: "primary",
+          value: "received"
         },
         {
-          "type": "button",
-          "text": {
-            "type": "plain_text",
-            "emoji": true,
-            "text": "Cancel"
+          type: "button",
+          text: {
+            type: "plain_text",
+            emoji: true,
+            text: "Cancel"
           },
-          "style": "danger",
-          "value": "reccancel"
+          style: "danger",
+          value: "reccancel"
         }
       ]
     }
