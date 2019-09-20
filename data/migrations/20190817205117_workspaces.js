@@ -1,25 +1,17 @@
-const WORKSPACES = "WORKSPACES";
-const ORGANIZERS = "ORGANIZERS";
+const WORKSPACES = 'WORKSPACES'
 
 exports.up = async function(knex) {
-  await knex.schema.createTable(WORKSPACES, tbl => {
-    tbl.increments();
-    tbl.string("name").notNullable();
-    tbl.string("team-icon-small").notNullable();
-    tbl.string("team-icon-med").notNullable();
-    tbl.string("team-icon-large").notNullable();
-    tbl.boolean("is-active").notNullable();
-    tbl
-      .integer("fk_organizer_id")
-      .unsigned()
-      .notNullable()
-      .references("id")
-      .inTable(ORGANIZERS)
-      .onDelete("CASCADE")
-      .onUpdate("CASCADE");
-  });
-};
+    await knex.schema.createTable(WORKSPACES, tbl => {
+        tbl.increments()
+        tbl.string('name').notNullable()
+        tbl.string('teamID').notNullable()
+        tbl.string('teamIconSmall').notNullable()
+        tbl.string('teamIconMed').notNullable()
+        tbl.string('teamIconLarge').notNullable()
+        tbl.boolean('isActive').defaultTo(true)
+    })
+}
 
 exports.down = async function(knex) {
-  await knex.schema.dropTableIfExists(WORKSPACES);
-};
+    await knex.schema.dropTableIfExists(WORKSPACES)
+}

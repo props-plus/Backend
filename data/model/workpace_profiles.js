@@ -1,5 +1,5 @@
 const db = require('../dbConfig')
-const dbTable = 'CONTACTS'
+const dbTable = 'WORKSPACE_PROFILES'
 
 module.exports = {
     add,
@@ -7,11 +7,14 @@ module.exports = {
     findById,
     remove,
     update,
-    updateKey
+    updateKey,
+    findByUserName
 }
 
 function add(dbTable, obj) {
-    return db(dbTable).insert(obj)
+    return db(dbTable)
+        .insert(obj)
+        .returning('*')
 }
 
 function find() {
@@ -21,6 +24,12 @@ function find() {
 function findById(id) {
     return db(dbTable)
         .where({ id })
+        .first()
+}
+
+function findByUserName(userName) {
+    return db(dbTable)
+        .where({ userName })
         .first()
 }
 
