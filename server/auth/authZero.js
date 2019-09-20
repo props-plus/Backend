@@ -6,7 +6,8 @@ const jwtAuthz = require("express-jwt-authz");
 const jwksRsa = require("jwks-rsa");
 
 // Authentication middleware that makes sure the
-// access_token matches with the Auth0 JSON Web Key Set.
+// access_token matches with the Auth0 JSON Web Key Set
+
 
 const verifyToken = jwt({
   secret: jwksRsa.expressJwtSecret({
