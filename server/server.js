@@ -26,7 +26,7 @@ server.use('/recent-props', recentProps)
 server.use('/info', info)
 server.use('/oauth', oauth)
 server.use('/protected', authZero)
-// Error handling for unauthorized users
+// Error handling for unauthorized users!
 server.use(authError)
 
 server.get('/', (req, res) => {
