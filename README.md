@@ -6,7 +6,7 @@
 
 # API Documentation
 
-#### 1️⃣ Backend delpoyed at [🚫name service here](🚫add URL here) <br>
+#### 1️⃣ Backend delpoyed at Heroku (https://props-plus-production.herokuapp.com/) <br>
 
 ## 1️⃣ Getting started
 
@@ -15,9 +15,9 @@ To get the server running locally:
 🚫 adjust these scripts to match your project
 
 - Clone this repo
-- **yarn install** to install all required dependencies
-- **yarn server** to start the local server
-- **yarn test** to start server using testing environment
+- **npm install** to install all required dependencies
+- **npm server** to start the local server
+- **npm test** to start server using testing environment
 
 ### Backend framework goes here
 
@@ -55,40 +55,84 @@ To get the server running locally:
 
 🚫This is just an example. Replace this with your data model
 
-#### 2️⃣ ORGANIZATIONS
+#### WORKSPACES
 
 ---
 
 ```
 {
-  id: UUID
+  id: INTEGER
   name: STRING
-  industry: STRING
-  paid: BOOLEAN
-  customer_id: STRING
-  subscription_id: STRING
+  teamID: STRING
+  teamIconSmall: STRING
+  teamIconMed: STRING
+  teamIconLarge: STRING
+  isActive: BOOLEAN
 }
 ```
 
-#### USERS
+#### WORKSPACE PROFILES
 
 ---
 
 ```
 {
-  id: UUID
-  organization_id: UUID foreign key in ORGANIZATIONS table
-  first_name: STRING
-  last_name: STRING
-  role: STRING [ 'owner', 'supervisor', 'employee' ]
-  email: STRING
-  phone: STRING
-  cal_visit: BOOLEAN
-  emp_visit: BOOLEAN
-  emailpref: BOOLEAN
-  phonepref: BOOLEAN
+  id: INTEGER
+  userName: STRING
+  userID: STRING
+  realName: STRING
+  userIconSmall: STRING
+  userIconMed: STRING
+  userIconLarge: STRING
+  isOwner: BOOLEAN
+  isAdmin: BOOLEAN
+  isActive: BOOLEAN
+  fk_workspace_id: INTEGER [Foreign Key in WORKSPACES Table]
 }
 ```
+
+#### PROPS
+
+---
+
+```
+{
+  id: INTEGER
+  createdAt: DATE & TIME STRING in YYYY-MM-DD [ 0 - 23 ] [HH:MM:SS]
+  value: INTEGER
+  message: TEXT
+  isAnon: TEXT
+  fk_to_workspace_profile_id: INTEGER [Foreign Key in WORKSPACE PROFILES Table]
+}
+```
+
+#### BADGES
+
+---
+
+```
+{
+  id: INTEGER
+  name: STRING
+  minimumValue: INTEGER
+  minimumPropCount: INTEGER
+  isVisible: BOOLEAN
+  image: STRING
+}
+```
+
+#### WORKSPACE PROFILE BADGES
+
+---
+
+```
+{
+  fk_workspace_profile_id: INTEGER [Foreign Key in WORKSPACE PROFILES Table]
+  fk_badge_id: INTEGER [Foreign Key in WORKSPACES BADGES Table]
+}
+```
+
+
 
 ## 2️⃣ Actions
 
@@ -123,13 +167,13 @@ In order for the app to function correctly, the user must set up their own envir
 create a .env file that includes the following:
 
 🚫 These are just examples, replace them with the specifics for your app
-    
+
     *  STAGING_DB - optional development db for using functionality not available in SQLite
     *  NODE_ENV - set to "development" until ready for "production"
     *  JWT_SECRET - you can generate this by using a python shell and running import random''.join([random.SystemRandom().choice('abcdefghijklmnopqrstuvwxyz0123456789!@#\$%^&amp;*(-*=+)') for i in range(50)])
     *  SENDGRID_API_KEY - this is generated in your Sendgrid account
     *  stripe_secret - this is generated in the Stripe dashboard
-    
+
 ## Contributing
 
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
