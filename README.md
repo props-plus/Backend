@@ -1,14 +1,8 @@
-🚫 Note: All lines that start with 🚫 are instructions and should be deleted before this is posted to your portfolio. This is intended to be a guideline. Feel free to add your own flare to it.
-
-🚫 The numbers 1️⃣ through 3️⃣ next to each item represent the week that part of the docs needs to be comepleted by.  Make sure to delete the numbers by the end of Labs.
-
-🚫 Each student has a required minimum number of meaningful PRs each week per the rubric.  Contributing to docs does NOT count as a PR to meet your weekly requirements.
-
 # API Documentation
 
 #### Backend delpoyed at Heroku (https://props-plus-production.herokuapp.com/) <br>
 
-## 1️⃣ Getting started
+## Getting started
 
 To get the server running locally:
 
@@ -28,28 +22,17 @@ To get the server running locally:
 -    Point Three
 -    Point Four
 
-## 2️⃣ Endpoints
+## Endpoints
 
-🚫This is a placeholder, replace the endpoints, access controll, and descriptioin to match your project
+🚫This is a placeholder, replace the endpoints, access controls, and description to match your project
 
-#### Organization Routes
+#### Routes
 
-| Method | Endpoint                | Access Control | Description                                  |
-| ------ | ----------------------- | -------------- | -------------------------------------------- |
-| GET    | `/organizations/:orgId` | all users      | Returns the information for an organization. |
-| PUT    | `/organizatoins/:orgId` | owners         | Modify an existing organization.             |
-| DELETE | `/organizations/:orgId` | owners         | Delete an organization.                      |
-
-#### User Routes
-
-| Method | Endpoint                | Access Control      | Description                                        |
-| ------ | ----------------------- | ------------------- | -------------------------------------------------- |
-| GET    | `/users/current`        | all users           | Returns info for the logged in user.               |
-| GET    | `/users/org/:userId`    | owners, supervisors | Returns all users for an organization.             |
-| GET    | `/users/:userId`        | owners, supervisors | Returns info for a single user.                    |
-| POST   | `/users/register/owner` | none                | Creates a new user as owner of a new organization. |
-| PUT    | `/users/:userId`        | owners, supervisors |                                                    |
-| DELETE | `/users/:userId`        | owners, supervisors |                                                    |
+| Method | Endpoint         | Access Control   | Description                                                                 |
+| ------ | ---------------- | ---------------- | --------------------------------------------------------------------------- |
+| POST   | `/:props`        | Signed in users  | Endpoint for Slack slash command; Sends props to selected user              |
+| POST   | `/:anon-props`   | Signed in users  | Endpoint for Slack slash command; Sends props anonymously to selected user  |
+| POST   | `/:info`         | Signed in users  | Endpoint for Slack slash command; Returns user info                         |
 
 # Data Model
 
@@ -136,51 +119,50 @@ To get the server running locally:
 
 #### WORKSPACES
 
-`find()`
-`findById(id)`
-`add(badge)`
-`update(id, badge)`
-`remove(id)`
+`add(dbTable, obj) -> Adds a workspace to the table`
+`find() -> Returns all workspaces`
+`findById(id) -> Returns a workspace by id`
+`findByTeamID() -> Returns a workspace by team id`
+`remove(id) -> Removes a workspace by id`
+`update(id, obj) -> Updates the workspace by id`
+`updateKey() -> Updates the workspace's key by id`
 
 #### WORKSPACE PROFILES
 
-`add()`
-`find()`
-`findById()`
-`remove()`
-`update()`
-`updateKey()`
-`findByUserID()`
-`findByDateRange()`
+`add(dbTable, obj) -> Adds a workspace profile to the table`
+`find() -> Returns all the workspace profiles in the table`
+`findById(id) -> Returns a workspace profile by id`
+`findByUserName(userName) -> Returns a workspace profile by the user id`
+`remove(id) -> Removes a workspace profile by id`
+`update(id, obj) -> Updates a workspace profile by id`
+`updateKey(id, obj) -> Updates the workspace profile's key by id`
 
 #### PROPS
 
-`add()`
-`find()`
-`findById()`
-`remove()`
-`update()`
-`updateKey()`
-`findByUserName()`
+`add(dbTable, obj) -> Adds a prop to the table`
+`find() -> Returns all the props in the table`
+`findById(id) -> Returns a prop by id`
+`findByUserID(fk_to_workspace_profile_id) -> Returns props belonging to specified user`
+`findByDateRange(obj) -> Returns props given at specified date range`
+`remove(id) -> Removes a prop by id`
+`update(id, obj) -> Updates a prop by id`
+`updateKey(id, obj) -> Updates a prop's key`
 
 #### BADGES
 
-`find()`
-`findById()`
-`add()`
-`update()`
-`remove()`
+`add(obj) -> Adds a badge to table`
+`find() -> Returns all the badges in the table`
+`findById(id) -> Returns a badge by id`
+`remove(id) -> Removes a badge by id`
+`update(id, obj) -> Updates a badge by id`
 
 #### WORKSPACE PROFILE BADGES
 
-`add()`
-`find()`
-`findById()`
-`remove()`
-`update()`
-`updateKey()`
-`findByTeamID()`
-
+`add(obj) -> Adds a workspace profile badge to the table`
+`find() -> Returns all the workspace profile badges in the table`
+`findById(id) -> Returns a workspace profile badge by id`
+`remove(id) -> Removes a workspace profile badge by id`
+`update(id, obj) -> Updates a workspace profile badge by id`
 
 ## Environment Variables
 
