@@ -12,6 +12,7 @@ const info = require('./routes/info')
 const oauth = require('./routes/oauth')
 const authZero = require('./auth/authZero')
 const authError = require('./auth/authError')
+const SPAAuth = require('../middleware/SPAauth')
 
 server.use(express.json())
 server.use(helmet())
@@ -29,7 +30,8 @@ server.use('/protected', authZero)
 // Error handling for unauthorized users!
 server.use(authError)
 
-server.get('/', (req, res) => {
+server.get('/', SPAAuth, (req, res) => {
+    console.log(req.slackUser)
     res.json({ message: 'You have reached the api' })
 })
 
