@@ -12,9 +12,17 @@ router.post('/', async (req, res) => {
     const receiver = user.substring(1)
     const message = arr.slice(1).join(' ')
 
-    res.json({
-        blocks: sendPropsCard({ receiver, message, isAnon: false })
-    })
+    console.log(text);
+
+    if(!text){
+      res.json({
+        text: 'you need to select a user'
+      })
+    } else {
+      res.json({
+          blocks: sendPropsCard({ receiver, message, isAnon: false })
+      })
+    }
 })
 
 module.exports = router
