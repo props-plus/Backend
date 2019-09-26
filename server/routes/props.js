@@ -1,4 +1,5 @@
 const sendPropsCard = require('../../slackBlocks/sendPropsCard')
+const blankUserMessageCard = require('../../slackBlocks/blankUserMessageCard')
 const express = require('express')
 const router = express.Router()
 
@@ -16,7 +17,7 @@ router.post('/', async (req, res) => {
 
     if(!text){
       res.json({
-        text: 'you need to select a user'
+        blocks: blankUserMessageCard()
       })
     } else {
       res.json({
