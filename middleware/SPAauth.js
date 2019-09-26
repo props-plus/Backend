@@ -1,4 +1,6 @@
 const { WebClient } = require('@slack/web-api')
+const teamIDCheck = require('../actions/teamIDCheck')
+const userIDCheck = require('../actions/userIDCheck')
 const web = new WebClient(process.env.BOT_TOKEN)
 
 const SPAAuth = async (req, res, next) => {
@@ -7,9 +9,13 @@ const SPAAuth = async (req, res, next) => {
             token: req.headers.authorization
         })
 
-        console.log(validateToken)
         if (validateToken) {
             req.slackUser = validateToken.user_id
+            req.teamInfo = await teamIDCheck({
+                team: { id: validateToken.team_id }
+            })
+            req.userInfo = await userIDCheck(validateToken.user)
+
             next()
         } else {
             res.status(401).json({ message: "Didn't say the magic word!" })
