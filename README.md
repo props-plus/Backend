@@ -1,135 +1,168 @@
-🚫 Note: All lines that start with 🚫 are instructions and should be deleted before this is posted to your portfolio. This is intended to be a guideline. Feel free to add your own flare to it.
-
-🚫 The numbers 1️⃣ through 3️⃣ next to each item represent the week that part of the docs needs to be comepleted by.  Make sure to delete the numbers by the end of Labs.
-
-🚫 Each student has a required minimum number of meaningful PRs each week per the rubric.  Contributing to docs does NOT count as a PR to meet your weekly requirements.
-
 # API Documentation
 
-#### 1️⃣ Backend delpoyed at [🚫name service here](🚫add URL here) <br>
+#### Backend delpoyed at Heroku (https://props-plus-production.herokuapp.com/) <br>
 
-## 1️⃣ Getting started
+## Getting started
 
 To get the server running locally:
 
-🚫 adjust these scripts to match your project
-
 - Clone this repo
-- **yarn install** to install all required dependencies
-- **yarn server** to start the local server
-- **yarn test** to start server using testing environment
+- **npm install** to install all required dependencies
+- **npm server** to start the local server
+- **npm test** to start server using testing environment
+- start ngrok
+- Set up ngrok tunnel address in Slack App settings
 
-### Backend framework goes here
+## Endpoints
 
-🚫 Why did you choose this framework?
+#### Routes
 
--    Point One
--    Point Two
--    Point Three
--    Point Four
-
-## 2️⃣ Endpoints
-
-🚫This is a placeholder, replace the endpoints, access controll, and descriptioin to match your project
-
-#### Organization Routes
-
-| Method | Endpoint                | Access Control | Description                                  |
-| ------ | ----------------------- | -------------- | -------------------------------------------- |
-| GET    | `/organizations/:orgId` | all users      | Returns the information for an organization. |
-| PUT    | `/organizatoins/:orgId` | owners         | Modify an existing organization.             |
-| DELETE | `/organizations/:orgId` | owners         | Delete an organization.                      |
-
-#### User Routes
-
-| Method | Endpoint                | Access Control      | Description                                        |
-| ------ | ----------------------- | ------------------- | -------------------------------------------------- |
-| GET    | `/users/current`        | all users           | Returns info for the logged in user.               |
-| GET    | `/users/org/:userId`    | owners, supervisors | Returns all users for an organization.             |
-| GET    | `/users/:userId`        | owners, supervisors | Returns info for a single user.                    |
-| POST   | `/users/register/owner` | none                | Creates a new user as owner of a new organization. |
-| PUT    | `/users/:userId`        | owners, supervisors |                                                    |
-| DELETE | `/users/:userId`        | owners, supervisors |                                                    |
+| Method | Endpoint         | Access Control   | Description                                                                 |
+| ------ | ---------------- | ---------------- | --------------------------------------------------------------------------- |
+| POST   | `/:props`        | Signed in users  | Endpoint for Slack slash command; Sends props to selected user              |
+| POST   | `/:anon-props`   | Signed in users  | Endpoint for Slack slash command; Sends props anonymously to selected user  |
+| POST   | `/:info`         | Signed in users  | Endpoint for Slack slash command; Returns user info                         |
 
 # Data Model
 
-🚫This is just an example. Replace this with your data model
-
-#### 2️⃣ ORGANIZATIONS
+#### WORKSPACES
 
 ---
 
 ```
 {
-  id: UUID
+  id: INTEGER
   name: STRING
-  industry: STRING
-  paid: BOOLEAN
-  customer_id: STRING
-  subscription_id: STRING
+  teamID: STRING
+  teamIconSmall: STRING
+  teamIconMed: STRING
+  teamIconLarge: STRING
+  isActive: BOOLEAN
 }
 ```
 
-#### USERS
+#### WORKSPACE PROFILES
 
 ---
 
 ```
 {
-  id: UUID
-  organization_id: UUID foreign key in ORGANIZATIONS table
-  first_name: STRING
-  last_name: STRING
-  role: STRING [ 'owner', 'supervisor', 'employee' ]
-  email: STRING
-  phone: STRING
-  cal_visit: BOOLEAN
-  emp_visit: BOOLEAN
-  emailpref: BOOLEAN
-  phonepref: BOOLEAN
+  id: INTEGER
+  userName: STRING
+  userID: STRING
+  realName: STRING
+  userIconSmall: STRING
+  userIconMed: STRING
+  userIconLarge: STRING
+  isOwner: BOOLEAN
+  isAdmin: BOOLEAN
+  isActive: BOOLEAN
+  fk_workspace_id: INTEGER [Foreign Key in WORKSPACES Table]
 }
 ```
 
-## 2️⃣ Actions
+#### PROPS
 
-🚫 This is an example, replace this with the actions that pertain to your backend
+---
 
-`getOrgs()` -> Returns all organizations
+```
+{
+  id: INTEGER
+  createdAt: DATE & TIME STRING in YYYY-MM-DD [ 0 - 23 ] [HH:MM:SS]
+  value: INTEGER
+  message: TEXT
+  isAnon: TEXT
+  fk_to_workspace_profile_id: INTEGER [Foreign Key in WORKSPACE PROFILES Table]
+}
+```
 
-`getOrg(orgId)` -> Returns a single organization by ID
+#### BADGES
 
-`addOrg(org)` -> Returns the created org
+---
 
-`updateOrg(orgId)` -> Update an organization by ID
+```
+{
+  id: INTEGER
+  name: STRING
+  minimumValue: INTEGER
+  minimumPropCount: INTEGER
+  isVisible: BOOLEAN
+  image: STRING
+}
+```
 
-`deleteOrg(orgId)` -> Delete an organization by ID
-<br>
-<br>
-<br>
-`getUsers(orgId)` -> if no param all users
+#### WORKSPACE PROFILE BADGES
 
-`getUser(userId)` -> Returns a single user by user ID
+---
 
-`addUser(user object)` --> Creates a new user and returns that user. Also creates 7 availabilities defaulted to hours of operation for their organization.
+```
+{
+  fk_workspace_profile_id: INTEGER [Foreign Key in WORKSPACE PROFILES Table]
+  fk_badge_id: INTEGER [Foreign Key in WORKSPACES BADGES Table]
+}
+```
 
-`updateUser(userId, changes object)` -> Updates a single user by ID.
 
-`deleteUser(userId)` -> deletes everything dependent on the user
 
-## 3️⃣ Environment Variables
+## Actions
+
+#### WORKSPACES
+
+`add(dbTable, obj) -> Adds a workspace to the table`<br>
+`find() -> Returns all workspaces`<br>
+`findById(id) -> Returns a workspace by id`<br>
+`findByTeamID() -> Returns a workspace by team id`<br>
+`remove(id) -> Removes a workspace by id`<br>
+`update(id, obj) -> Updates the workspace by id`<br>
+`updateKey() -> Updates the workspace's key by id`<br>
+
+#### WORKSPACE PROFILES
+
+`add(dbTable, obj) -> Adds a workspace profile to the table`<br>
+`find() -> Returns all the workspace profiles in the table`<br>
+`findById(id) -> Returns a workspace profile by id`<br>
+`findByUserName(userName) -> Returns a workspace profile by the user id`<br>
+`remove(id) -> Removes a workspace profile by id`<br>
+`update(id, obj) -> Updates a workspace profile by id`<br>
+`updateKey(id, obj) -> Updates the workspace profile's key by id`<br>
+
+#### PROPS
+
+`add(dbTable, obj) -> Adds a prop to the table`<br>
+`find() -> Returns all the props in the table`<br>
+`findById(id) -> Returns a prop by id`<br>
+`findByUserID(fk_to_workspace_profile_id) -> Returns props belonging to specified user`<br>
+`findByDateRange(obj) -> Returns props given at specified date range`<br>
+`remove(id) -> Removes a prop by id`<br>
+`update(id, obj) -> Updates a prop by id`<br>
+`updateKey(id, obj) -> Updates a prop's key`<br>
+
+#### BADGES
+
+`add(obj) -> Adds a badge to table`<br>
+`find() -> Returns all the badges in the table`<br>
+`findById(id) -> Returns a badge by id`<br>
+`remove(id) -> Removes a badge by id`<br>
+`update(id, obj) -> Updates a badge by id`<br>
+
+#### WORKSPACE PROFILE BADGES
+
+`add(obj) -> Adds a workspace profile badge to the table`<br>
+`find() -> Returns all the workspace profile badges in the table`<br>
+`findById(id) -> Returns a workspace profile badge by id`<br>
+`remove(id) -> Removes a workspace profile badge by id`<br>
+`update(id, obj) -> Updates a workspace profile badge by id`<br>
+
+## Environment Variables
 
 In order for the app to function correctly, the user must set up their own environment variables.
 
 create a .env file that includes the following:
 
-🚫 These are just examples, replace them with the specifics for your app
-    
-    *  STAGING_DB - optional development db for using functionality not available in SQLite
-    *  NODE_ENV - set to "development" until ready for "production"
-    *  JWT_SECRET - you can generate this by using a python shell and running import random''.join([random.SystemRandom().choice('abcdefghijklmnopqrstuvwxyz0123456789!@#\$%^&amp;*(-*=+)') for i in range(50)])
-    *  SENDGRID_API_KEY - this is generated in your Sendgrid account
-    *  stripe_secret - this is generated in the Stripe dashboard
-    
+    * BOT_TOKEN - Bot user tokens represent a bot associated with the app installed in a workspace, located in OAuth & Permissoins section of your Slack app. Props uses a bot to send props the users.
+    * CLIENT_ID - Required to access the Slack API. Can be located in the Basic Information section of your Slack App.
+    * SECRET_ID - Required when making ouath.access requests. Can be located in the Basic Information section of your Slack App.
+
 ## Contributing
 
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.

@@ -9,8 +9,8 @@ module.exports = {
     remove
 }
 
-function find(WORKSPACE_PROFILES_BADGES) {
-    return db()
+function find() {
+    return db(WORKSPACE_PROFILES_BADGES)
 }
 
 function findById(id) {
