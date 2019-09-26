@@ -13,8 +13,6 @@ router.post('/', async (req, res) => {
     const receiver = user.substring(1)
     const message = arr.slice(1).join(' ')
 
-    console.log(text);
-
     if(!text){
       res.json({
         blocks: blankUserMessageCard()
