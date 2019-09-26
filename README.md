@@ -6,25 +6,14 @@
 
 To get the server running locally:
 
-🚫 adjust these scripts to match your project
-
 - Clone this repo
 - **npm install** to install all required dependencies
 - **npm server** to start the local server
 - **npm test** to start server using testing environment
-
-### Backend framework goes here
-
-🚫 Why did you choose this framework?
-
--    Point One
--    Point Two
--    Point Three
--    Point Four
+- start ngrok
+- Set up ngrok tunnel address in Slack App settings
 
 ## Endpoints
-
-🚫This is a placeholder, replace the endpoints, access controls, and description to match your project
 
 #### Routes
 
@@ -170,9 +159,9 @@ In order for the app to function correctly, the user must set up their own envir
 
 create a .env file that includes the following:
 
-    * BOT_TOKEN
-    * CLIENT_ID
-    * SECRET_ID
+    * BOT_TOKEN - Bot user tokens represent a bot associated with the app installed in a workspace, located in OAuth & Permissoins section of your Slack app. Props uses a bot to send props the users.
+    * CLIENT_ID - Required to access the Slack API. Can be located in the Basic Information section of your Slack App.
+    * SECRET_ID - Required when making ouath.access requests. Can be located in the Basic Information section of your Slack App.
 
 ## Contributing
 
