@@ -108,50 +108,50 @@ To get the server running locally:
 
 #### WORKSPACES
 
-`add(dbTable, obj) -> Adds a workspace to the table`
-`find() -> Returns all workspaces`
-`findById(id) -> Returns a workspace by id`
-`findByTeamID() -> Returns a workspace by team id`
-`remove(id) -> Removes a workspace by id`
-`update(id, obj) -> Updates the workspace by id`
-`updateKey() -> Updates the workspace's key by id`
+`add(dbTable, obj) -> Adds a workspace to the table`<br>
+`find() -> Returns all workspaces`<br>
+`findById(id) -> Returns a workspace by id`<br>
+`findByTeamID() -> Returns a workspace by team id`<br>
+`remove(id) -> Removes a workspace by id`<br>
+`update(id, obj) -> Updates the workspace by id`<br>
+`updateKey() -> Updates the workspace's key by id`<br>
 
 #### WORKSPACE PROFILES
 
-`add(dbTable, obj) -> Adds a workspace profile to the table`
-`find() -> Returns all the workspace profiles in the table`
-`findById(id) -> Returns a workspace profile by id`
-`findByUserName(userName) -> Returns a workspace profile by the user id`
-`remove(id) -> Removes a workspace profile by id`
-`update(id, obj) -> Updates a workspace profile by id`
-`updateKey(id, obj) -> Updates the workspace profile's key by id`
+`add(dbTable, obj) -> Adds a workspace profile to the table`<br>
+`find() -> Returns all the workspace profiles in the table`<br>
+`findById(id) -> Returns a workspace profile by id`<br>
+`findByUserName(userName) -> Returns a workspace profile by the user id`<br>
+`remove(id) -> Removes a workspace profile by id`<br>
+`update(id, obj) -> Updates a workspace profile by id`<br>
+`updateKey(id, obj) -> Updates the workspace profile's key by id`<br>
 
 #### PROPS
 
-`add(dbTable, obj) -> Adds a prop to the table`
-`find() -> Returns all the props in the table`
-`findById(id) -> Returns a prop by id`
-`findByUserID(fk_to_workspace_profile_id) -> Returns props belonging to specified user`
-`findByDateRange(obj) -> Returns props given at specified date range`
-`remove(id) -> Removes a prop by id`
-`update(id, obj) -> Updates a prop by id`
-`updateKey(id, obj) -> Updates a prop's key`
+`add(dbTable, obj) -> Adds a prop to the table`<br>
+`find() -> Returns all the props in the table`<br>
+`findById(id) -> Returns a prop by id`<br>
+`findByUserID(fk_to_workspace_profile_id) -> Returns props belonging to specified user`<br>
+`findByDateRange(obj) -> Returns props given at specified date range`<br>
+`remove(id) -> Removes a prop by id`<br>
+`update(id, obj) -> Updates a prop by id`<br>
+`updateKey(id, obj) -> Updates a prop's key`<br>
 
 #### BADGES
 
-`add(obj) -> Adds a badge to table`
-`find() -> Returns all the badges in the table`
-`findById(id) -> Returns a badge by id`
-`remove(id) -> Removes a badge by id`
-`update(id, obj) -> Updates a badge by id`
+`add(obj) -> Adds a badge to table`<br>
+`find() -> Returns all the badges in the table`<br>
+`findById(id) -> Returns a badge by id`<br>
+`remove(id) -> Removes a badge by id`<br>
+`update(id, obj) -> Updates a badge by id`<br>
 
 #### WORKSPACE PROFILE BADGES
 
-`add(obj) -> Adds a workspace profile badge to the table`
-`find() -> Returns all the workspace profile badges in the table`
-`findById(id) -> Returns a workspace profile badge by id`
-`remove(id) -> Removes a workspace profile badge by id`
-`update(id, obj) -> Updates a workspace profile badge by id`
+`add(obj) -> Adds a workspace profile badge to the table`<br>
+`find() -> Returns all the workspace profile badges in the table`<br>
+`findById(id) -> Returns a workspace profile badge by id`<br>
+`remove(id) -> Removes a workspace profile badge by id`<br>
+`update(id, obj) -> Updates a workspace profile badge by id`<br>
 
 ## Environment Variables
 
