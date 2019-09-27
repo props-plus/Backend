@@ -12,6 +12,7 @@ const authZero = require('./auth/authZero')
 const authError = require('./auth/authError')
 const SPAAuth = require('../middleware/SPAauth')
 const userData = require('./routes/userData')
+const teamData = require('./routes/workspaceData')
 
 server.use(express.json())
 server.use(helmet())
@@ -25,6 +26,7 @@ server.use('/info', info)
 server.use('/oauth', oauth)
 server.use('/protected', authZero)
 server.use('/user-data', userData)
+server.use('/team-data', teamData)
 // Error handling for unauthorized users!
 server.use(authError)
 
