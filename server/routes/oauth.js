@@ -6,6 +6,7 @@ const client_id = process.env.CLIENT_ID
 const client_secret = process.env.CLIENT_SECRET
 
 router.get('/', async (req, res) => {
+    console.log(req.query)
     if (!req.query.code) {
         res.status(500).json({ error: 'Not getting code' })
     } else {
