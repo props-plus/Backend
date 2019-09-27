@@ -10,6 +10,7 @@ module.exports = {
     update,
     updateKey,
     findByUserID,
+    findByPropsReceived,
     findByPropsSent,
     findByDateRange
 }
@@ -44,6 +45,11 @@ function findById(id) {
     return db(dbTable)
         .where({ id })
         .first()
+}
+
+function findByPropsReceived(fk_to_workspace_profile_id) {
+    return db(dbTable)
+        .where({ fk_to_workspace_profile_id })
 }
 
 function findByPropsSent(fk_from_workspace_profile_id) {
