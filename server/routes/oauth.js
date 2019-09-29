@@ -6,7 +6,9 @@ const client_id = process.env.CLIENT_ID
 const client_secret = process.env.CLIENT_SECRET
 
 router.get('/', async (req, res) => {
-    console.log(req.query)
+    console.log('Query: ', req.query)
+    console.log('Header: ', req.headers)
+
     if (!req.query.code) {
         res.status(500).json({ error: 'Not getting code' })
     } else {
@@ -25,8 +27,10 @@ router.get('/', async (req, res) => {
                     console.error(error)
                 } else {
                     body = JSON.parse(body)
+                    console.log('Body: ', body)
                     const user = await userInfo(body.access_token, body.user_id)
-                    res.json(user)
+                    console.log('User: ', user)
+                    res.json(user.uri.query)
                 }
             }
         )
