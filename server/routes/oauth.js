@@ -30,7 +30,7 @@ router.get('/', async (req, res) => {
                     console.log('Body: ', body)
                     const user = await userInfo(body.access_token, body.user_id)
                     console.log('User: ', user)
-                    res.json(user.uri.query)
+                    res.json({ token: user.uri.query.split('token=')[1] })
                 }
             }
         )
