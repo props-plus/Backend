@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get('/received', SPAAuth, async (req, res) => {
     try {
-        const userProps = await db.findByPropsReceived(6)
+        const userProps = await db.findByPropsReceived(req.userInfo.id)
         if (userProps[0]) {
             res.status(200).json(userProps)
         } else {
@@ -25,7 +25,7 @@ router.get('/received', SPAAuth, async (req, res) => {
 
 router.get('/sent', SPAAuth, async (req, res) => {
     try {
-        const userProps = await db.findByPropsSent(req.userInfo.fk_workspace_id)
+        const userProps = await db.findByPropsSent(req.userInfo.id)
         if (userProps[0]) {
             res.status(200).json(userProps)
         } else {
