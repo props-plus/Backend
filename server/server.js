@@ -13,6 +13,8 @@ const oauth = require('./routes/oauth')
 const authZero = require('./auth/authZero')
 const authError = require('./auth/authError')
 const SPAAuth = require('../middleware/SPAauth')
+const propsData = require('./routes/propsData')
+const workspaceProfilesData = require('./routes/workspace_profilesData')
 
 server.use(express.json())
 server.use(helmet())
@@ -27,11 +29,12 @@ server.use('/slackActions', button)
 server.use('/info', info)
 server.use('/oauth', oauth)
 server.use('/protected', authZero)
+server.use('/props-data', propsData)
+server.use('/workspace-profiles-data', workspaceProfilesData)
 // Error handling for unauthorized users!
 server.use(authError)
 
 server.get('/', SPAAuth, (req, res) => {
-    console.log(req.slackUser)
     res.json({ message: 'You have reached the api' })
 })
 
