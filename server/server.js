@@ -12,7 +12,6 @@ const info = require('./routes/info')
 const oauth = require('./routes/oauth')
 const authZero = require('./auth/authZero')
 const authError = require('./auth/authError')
-const userData = require('./routes/userData')
 const SPAAuth = require('../middleware/SPAauth')
 
 server.use(express.json())
@@ -28,7 +27,6 @@ server.use('/slackActions', button)
 server.use('/info', info)
 server.use('/oauth', oauth)
 server.use('/protected', authZero)
-server.use('/user-data', userData)
 // Error handling for unauthorized users!
 server.use(authError)
 

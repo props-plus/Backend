@@ -25,7 +25,7 @@ router.get('/', async (req, res) => {
                 } else {
                     body = JSON.parse(body)
                     const user = await userInfo(body.access_token, body.user_id)
-                    res.json({ token: user.uri.query.split('token=')[1] })
+                    res.json(user)
                 }
             }
         )
