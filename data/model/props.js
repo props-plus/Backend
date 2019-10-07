@@ -1,5 +1,6 @@
 const db = require('../dbConfig')
 const dbTable = 'PROPS'
+const dbTable2 = "WORKSPACES"
 const knex = require('../dbConfig')
 
 module.exports = {
@@ -10,6 +11,8 @@ module.exports = {
     update,
     updateKey,
     findByUserID,
+    findByPropsReceived,
+    findByPropsSent,
     findByDateRange
 }
 
@@ -20,6 +23,7 @@ function add(dbTable, obj) {
 function find() {
     return db(dbTable)
 }
+
 
 function findByDateRange(obj) {
     const { year, month, fk_from_workspace_profile_id } = obj
@@ -42,6 +46,14 @@ function findById(id) {
     return db(dbTable)
         .where({ id })
         .first()
+}
+
+function findByPropsReceived(fk_to_workspace_profile_id) {
+    return knex.from('PROPS').innerJoin('WORKSPACE_PROFILES', 'PROPS.fk_from_workspace_profile_id', 'WORKSPACE_PROFILES.id').where({ fk_to_workspace_profile_id })
+}
+
+function findByPropsSent(fk_from_workspace_profile_id) {
+    return knex.from('PROPS').innerJoin('WORKSPACE_PROFILES', 'PROPS.fk_to_workspace_profile_id', 'WORKSPACE_PROFILES.id').where({ fk_from_workspace_profile_id })
 }
 
 function remove(id) {
