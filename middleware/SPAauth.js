@@ -6,7 +6,7 @@ const web = new WebClient(process.env.BOT_TOKEN)
 const SPAAuth = async (req, res, next) => {
     try {
         const validateToken = await web.auth.test({
-            token: "xoxp-745512794214-736944915489-745206080391-90149f98fcfb3ff41dcb9ad62fde8662"
+            token: req.headers.authorization
         })
 
         if (validateToken) {
