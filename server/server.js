@@ -12,9 +12,9 @@ const info = require('./routes/info')
 const oauth = require('./routes/oauth')
 const authZero = require('./auth/authZero')
 const authError = require('./auth/authError')
+const userData = require('./routes/userData')
 const SPAAuth = require('../middleware/SPAauth')
-const propsData = require('./routes/propsData')
-const workspaceProfilesData = require('./routes/workspace_profilesData')
+const userView = require('./routes/userView')
 
 server.use(express.json())
 server.use(helmet())
@@ -29,8 +29,8 @@ server.use('/slackActions', button)
 server.use('/info', info)
 server.use('/oauth', oauth)
 server.use('/protected', authZero)
-server.use('/props-data', propsData)
-server.use('/workspace-profiles-data', workspaceProfilesData)
+server.use('/user-data', userView)
+
 // Error handling for unauthorized users!
 server.use(authError)
 

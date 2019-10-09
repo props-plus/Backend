@@ -1,5 +1,6 @@
 const db = require('../dbConfig')
 const dbTable = 'PROPS'
+const dbTable2 = "WORKSPACES"
 const knex = require('../dbConfig')
 
 module.exports = {
@@ -48,13 +49,11 @@ function findById(id) {
 }
 
 function findByPropsReceived(fk_to_workspace_profile_id) {
-    return db(dbTable)
-        .where({ fk_to_workspace_profile_id })
+    return knex.from('PROPS').innerJoin('WORKSPACE_PROFILES', 'PROPS.fk_from_workspace_profile_id', 'WORKSPACE_PROFILES.id').where({ fk_to_workspace_profile_id })
 }
 
 function findByPropsSent(fk_from_workspace_profile_id) {
-    return db(dbTable)
-        .where({ fk_from_workspace_profile_id })
+    return knex.from('PROPS').innerJoin('WORKSPACE_PROFILES', 'PROPS.fk_to_workspace_profile_id', 'WORKSPACE_PROFILES.id').where({ fk_from_workspace_profile_id })
 }
 
 function remove(id) {
