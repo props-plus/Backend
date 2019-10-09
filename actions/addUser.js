@@ -1,7 +1,7 @@
 const { WebClient } = require('@slack/web-api')
 const web = new WebClient(process.env.BOT_TOKEN)
 const ws = require('../data/model/workspace')
-const wsp = require('../data/model/workpace_profiles')
+const wsp = require('../data/model/workspace_profiles')
 const WORKSPACE_PROFILES = 'WORKSPACE_PROFILES'
 
 const addUser = async propUser => {

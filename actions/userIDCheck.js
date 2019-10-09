@@ -1,4 +1,4 @@
-const wsp = require('../data/model/workpace_profiles')
+const wsp = require('../data/model/workspace_profiles')
 const addUser = require('./addUser')
 
 const userIDCheck = async slackUserName => {
