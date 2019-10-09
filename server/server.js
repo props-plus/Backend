@@ -12,7 +12,6 @@ const info = require('./routes/info')
 const oauth = require('./routes/oauth')
 const authZero = require('./auth/authZero')
 const authError = require('./auth/authError')
-const userData = require('./routes/userData')
 const SPAAuth = require('../middleware/SPAauth')
 const userView = require('./routes/userView')
 
