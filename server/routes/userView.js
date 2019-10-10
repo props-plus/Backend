@@ -69,4 +69,29 @@ router.get('/team', SPAAuth, async (req, res) => {
     }
 })
 
+router.get('/info', SPAAuth, async (req, res) => {
+    const dt = new Date()
+    const propDateRange = {
+        year: dt.getFullYear(),
+        month: ('0' + (dt.getMonth() + 1)).slice(-2),
+        fk_from_workspace_profile_id: req.userInfo.id
+    }
+    var date = new Date()
+    var time = new Date(date.getTime())
+    time.setMonth(date.getMonth() + 1)
+    time.setDate(0)
+    var days =
+        time.getDate() > date.getDate() ? time.getDate() - date.getDate() : 0
+
+    const usedProps = await props.findByDateRange(propDateRange)
+    const sumPropsSent = usedProps.reduce((prev, next) => prev + next.value, 0)
+    const remainingProps = 3000 - sumPropsSent
+
+    try {
+        res.status(200).json({ remainingProps, days })
+    } catch (error) {
+        res.status(500).json({ message: error })
+    }
+})
+
 module.exports = router;
