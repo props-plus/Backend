@@ -29,6 +29,7 @@ router.get("/", async (req, res) => {
             .split("&user")
             .shift()
             .replace(/token=/, "");
+          console.log("token: ", myToken);
           res.json({ token: myToken });
         }
       }

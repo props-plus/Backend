@@ -24,7 +24,7 @@ router.get("/", SPAAuth, async (req, res) => {
 router.get("/received", SPAAuth, async (req, res) => {
   try {
     const userProps = await props.findByPropsReceived(req.userInfo.id);
-    if (userProps[0]) {
+    if (req.userInfo.id) {
       res.status(200).json(userProps);
     } else {
       res.status(404).json({ message: "No props to display" });
