@@ -7,21 +7,21 @@ router.use(express.json())
 router.use(express.urlencoded())
 
 router.post('/', async (req, res) => {
-    const { text } = req.body
-    const arr = text.split(' ')
-    const [user] = arr
-    const receiver = user.substring(1)
-    const message = arr.slice(1).join(' ')
+  const { text } = req.body
+  const arr = text.split(' ')
+  const [user] = arr
+  const receiver = user.substring(1)
+  const message = arr.slice(1).join(' ')
 
-    if(!text){
-      res.json({
-        blocks: blankUserMessageCard()
-      })
-    } else {
-      res.json({
-          blocks: sendPropsCard({ receiver, message, isAnon: false })
-      })
-    }
+  if (!text) {
+    res.json({
+      blocks: blankUserMessageCard()
+    })
+  } else {
+    res.json({
+      blocks: sendPropsCard({ receiver, message, isAnon: false })
+    })
+  }
 })
 
 module.exports = router

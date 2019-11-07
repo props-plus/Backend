@@ -1,8 +1,7 @@
-const wsp = require('../data/model/workpace_profiles')
+const wsp = require('../data/model/workspace_profiles')
 const addUser = require('./addUser')
 
 const userIDCheck = async slackUserName => {
-    console.log('****', slackUserName)
     try {
         const existingUser = await wsp.findByUserName(slackUserName)
 
